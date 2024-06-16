@@ -1,0 +1,49 @@
+{
+  "menu": [
+    {
+      "url": "/",
+      "name": "Home",
+      "icon": "menu-icon tf-icons bx bx-log-in-circle",
+      "slug": "pages-home"
+    },
+    {
+      "url": "/communities",
+      "name": "Mis comunidades",
+      "icon": "menu-icon tf-icons bx bx-building-house",
+      "slug": "pages-communities"
+    },
+    {
+      "url": "/properties",
+      "name": "Propiedades",
+      "icon": "menu-icon tf-icons bx bx-home-circle",
+      "slug": "pages-properties"
+    },
+    {
+      "url": "/neighbors",
+      "name": "Vecinos",
+      "icon": "menu-icon tf-icons bx bx-user-circle",
+      "slug": "pages-neighbors"
+    },
+    {
+      "url": "/debts",
+      "name": "Gestión de pagos",
+      "icon": "menu-icon tf-icons bx bx-dollar-circle",
+      "slug": "pages-debts"
+    },
+    {
+      "url": "/propertystatuses",
+      "name": "Estados de propiedad",
+      "icon": "menu-icon tf-icons bx bx-file",
+      "slug": "pages-propertystatuses"
+    }
+,
+    {
+      "url": "/reports",
+      "name": "Reportes",
+      "icon": "menu-icon tf-icons bx bx-file",
+      "slug": "pages-reports"
+    }
+
+
+  ]
+}
