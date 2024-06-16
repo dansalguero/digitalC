@@ -9,6 +9,7 @@ use App\Models\Property;
 use Illuminate\Support\Facades\Auth;
 
 
+////Controlador de la página de mis vecinos y todas sus funcionalidades
 class neighbors extends Controller
 {
   public function index()
@@ -33,8 +34,7 @@ class neighbors extends Controller
     $user = Auth::user();
     $activeCommunity = $user->activeCommunity;
 
-   // $properties = Property::where('community_id', $activeCommunity->community_id)->get();
-    $properties = Property::whereDoesntHave('neighbors')->where('community_id', $activeCommunity->id)->get();
+    $properties = Property::whereDoesntHave('neighbor')->where('community_id', $activeCommunity->community_id)->get();
 
     return view('content.pages.neighbors-create', ['properties' => $properties, 'activeCommunity' => $activeCommunity]);
   }

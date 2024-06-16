@@ -4,7 +4,7 @@
 
 @extends('layouts/layoutMaster')
 
-@section('title', 'Crear Comunidad')
+@section('title', 'Comunidades')
 
 @section('content')
 <h4>Creando una nueva comunidad</h4>
@@ -21,15 +21,15 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="contact_name">Persona de contacto</label>
-                        <input type="text" name='contact_name' class="form-control" id="contact_name"  />
+                        <input type="text" name='contact_name' class="form-control" id="contact_name" required  />
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="contact_phone">Teléfono</label>
-                        <input type="tel" name='contact_phone' class="form-control" id="contact_phone" pattern="[0-9]{9}"  />
+                        <input type="tel" name='contact_phone' class="form-control" id="contact_phone" pattern="[0-9]{9}" required  />
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="contact_email">Email</label>
-                        <input type="email" name='contact_email' class="form-control" id="contact_email"  />
+                        <input type="email" name='contact_email' class="form-control" id="contact_email"  required/>
                     </div>
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>

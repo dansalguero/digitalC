@@ -4,7 +4,7 @@
 
 @extends('layouts/layoutMaster')
 
-@section('title', 'Page 2')
+@section('title', 'Vecinos')
 
 @section('content')
 <h4>Editando un vecino</h4>
@@ -52,19 +52,20 @@
                         <input type="text" name='phone' class="form-control" id="basic-default-fullname"
                             value="{{$neighbor->phone}}" required placeholder="431 / D" />
                     </div>
-                    <select name="property_id" class="form-select" required>
+                    <select name="property_id" class="form-control">
                         @if($neighbor->property)
-                            <option value="{{ $neighbor->property->id }}">
+                            <option value="{{ $neighbor->property->property_id }}">
                                 {{ $neighbor->property->phase }} - {{ $neighbor->property->block }} -
-                                {{ $neighbor->property->floor }} -
-                                {{ $neighbor->property->number }}
+                                {{ $neighbor->property->floor }} - {{ $neighbor->property->number }}
                             </option>
                         @else
                             <option value="">Selecciona una propiedad</option>
                         @endif
+
+                        <!-- Listar todas las propiedades disponibles -->
                         @foreach ($properties as $property)
-                            <option value="{{ $property->id }}">{{ $property->phase }} - {{ $property->block }} -
-                                {{ $property->floor }} -
+                            <option value="{{ $property->property_id }}">
+                                {{ $property->phase }} - {{ $property->block }} - {{ $property->floor }} -
                                 {{ $property->number }}
                             </option>
                         @endforeach

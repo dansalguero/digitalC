@@ -36,14 +36,5 @@
       "icon": "menu-icon tf-icons bx bx-file",
       "slug": "pages-propertystatuses"
     }
-,
-    {
-      "url": "/reports",
-      "name": "Reportes",
-      "icon": "menu-icon tf-icons bx bx-file",
-      "slug": "pages-reports"
-    }
-
-
   ]
 }

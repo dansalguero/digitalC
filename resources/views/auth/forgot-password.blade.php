@@ -16,16 +16,8 @@ $customizerHidden = 'customizer-hide';
 <div class="authentication-wrapper authentication-cover">
   <div class="authentication-inner row m-0">
     <!-- /Left Text -->
-    <div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center">
-      <div class="flex-row text-center mx-auto">
-        <img src="{{asset('assets/img/pages/forgot-password-'.$configData['style'].'.png')}}" alt="Auth Cover Bg color" width="520" class="img-fluid authentication-cover-img" data-app-light-img="pages/forgot-password-light.png" data-app-dark-img="pages/forgot-password-dark.png">
-        <div class="mx-auto">
-          <h3>No worries, we will send you instructions 👩🏻‍💻</h3>
-          <p>
-            We can help you reset your password and security info. First, enter <br> your email address and click on send reset link.
-          </p>
-        </div>
-      </div>
+    <div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center" style="background-image: url('{{ asset('assets/img/pages/portada.jpg') }}'); background-size: cover;">
+
     </div>
     <!-- /Left Text -->
     <!-- Forgot Password -->
@@ -39,8 +31,8 @@ $customizerHidden = 'customizer-hide';
           </a>
         </div>
         <!-- /Logo -->
-        <h4 class="mb-2">Forgot Password? 🔒</h4>
-        <p class="mb-4">Enter your email and we'll send you instructions to reset your password</p>
+        <h4 class="mb-2">¿Has olvidado tu contraseña? 🔒</h4>
+        <p class="mb-4">Introduce tu email y te enviaremos instrucciones para cambiarla</p>
 
         @if (session('status'))
         <div class="mb-1 text-success">
@@ -59,13 +51,13 @@ $customizerHidden = 'customizer-hide';
             </span>
             @enderror
           </div>
-          <button type="submit" class="btn btn-primary d-grid w-100">Send Reset Link</button>
+          <button type="submit" class="btn btn-primary d-grid w-100">Enviar link de reseteo de contraseña</button>
         </form>
         <div class="text-center">
           @if (Route::has('login'))
           <a href="{{ route('login') }}" class="d-flex align-items-center justify-content-center">
             <i class="bx bx-chevron-left scaleX-n1-rtl"></i>
-            Back to login
+            Volver a la página de login
           </a>
           @endif
         </div>

@@ -8,8 +8,8 @@
         document.write(new Date().getFullYear())
 
       </script>
-      , made with ❤️ by <a href="{{ (!empty(config('variables.creatorUrl')) ? config('variables.creatorUrl') : '') }}"
-        target="_blank"
+      Proyecto desarrollo de aplicaciones Web por <a
+        href="{{ (!empty(config('variables.creatorUrl')) ? config('variables.creatorUrl') : '') }}" target="_blank"
         class="footer-link fw-semibold">{{ (!empty(config('variables.creatorName')) ? config('variables.creatorName') : '') }}</a>
     </div>
     <p xmlns:cc="http://creativecommons.org/ns#">This work is licensed under <a

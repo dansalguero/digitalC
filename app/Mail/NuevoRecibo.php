@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Debt;
 
 class NuevoRecibo extends Mailable
 {
@@ -18,9 +19,9 @@ class NuevoRecibo extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Debt $debt)
     {
-        //
+        $this->debt = $debt;
     }
 
     /**
@@ -39,7 +40,8 @@ class NuevoRecibo extends Mailable
     public function build()
     {
 
-        return $this->view('mails.recibo');
+        return $this->view('mails.recibo')
+        ->with(['debt' => $this->debt]);
     }
     /**
      * Get the message content definition.

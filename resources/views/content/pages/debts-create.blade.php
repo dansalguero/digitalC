@@ -4,10 +4,10 @@
 
 @extends('layouts/layoutMaster')
 
-@section('title', 'Page 2')
+@section('title', 'Gestión de deuda')
 
 @section('content')
-<h4>Creando una propiedad nueva</h4>
+<h4>Creando una deuda nueva</h4>
 
 <div class="row">
     @if ($errors->any())
@@ -37,24 +37,24 @@
                     <div class="mb-3">
                         <label class="form-label" for="debt_description">Descripción</label>
                         <input type="text" name='debt_description' class="form-control" id="debt_description" required
-                            placeholder="Segundo" />
+                             />
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="issue_date">Fecha Emisión</label>
                         <input type="date" name='issue_date' class="form-control" id="issue_date" required
-                            placeholder="Tercera" />
+                           />
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="maturity_date">Fecha Vencimiento</label>
                         <input type="date" name='maturity_date' class="form-control" id="maturity_date" required
-                            placeholder="Tercera" />
+                             />
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="amount">Importe</label>
                         <input type="integer" name='amount' class="form-control" id="amount" required
-                            placeholder="431 / D" />
+                           />
                     </div>
-                    <button type="submit" class="btn btn-primary">Send</button>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
             </div>
         </div>

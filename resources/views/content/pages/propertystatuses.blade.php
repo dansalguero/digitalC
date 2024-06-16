@@ -8,7 +8,9 @@
 
 @section('content')
 @role('admin')
-<h4>Propiedades</h4>
+<h4>Estados de propiedades</h4>
+<a href="{{route('pages-propertystatuses-create')}}" class="btn rounded-pill btn-primary">Crear nuevo estado </a>
+<div class="mb-2"></div>
 <div class="card"></div>
     <div class="table-responsive text-nowrap">
         <table class="table">

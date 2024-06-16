@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Deudas cobradas</title>
+    <title>Deudas compensadas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -47,7 +47,7 @@
 </head>
 
 <body>
-    <h1>Deudas</h1>
+    <h1>Deudas compensadas</h1>
     <table>
         <thead>
             <tr>

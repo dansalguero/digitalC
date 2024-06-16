@@ -4,12 +4,12 @@
 
 @extends('layouts/layoutMaster')
 
-@section('title', 'Deudas')
+@section('title', 'Gestión de deuda')
 
 @section('content')
 <h4>Deudas de la comunidad: {{$activeCommunity->community_name}}</h4>
-<a href="{{route('pages-debts-create')}}" class="btn rounded-pill btn-secondary">Crear deuda unitaria</a>
-<a href="{{route('pages-debts-createglobal')}}" class="btn rounded-pill btn-primary">Crear deuda global</a>
+<a href="{{route('pages-debts-create')}}" class="btn rounded-pill btn-secondary">Crear recibo para una propiedad</a>
+<a href="{{route('pages-debts-createglobal')}}" class="btn rounded-pill btn-primary">Crear derrama</a>
 <div class="mb-2"></div>
 <div class="card">
     <div class="table-responsive text-nowrap">
@@ -29,12 +29,12 @@
                 @foreach ($debts as $debt)
                     <tr>
                         <td>
-                        @if ($debt->status_id<> 2)
+                            @if ($debt->status_id <> 2)
                                 <a href="{{ route('pages-debts-pay', $debt->debt_id) }}" class="badge bg-success">Compensar</a>
-                                |
+
                             @else
                                 <a href="{{ route('pages-debts-reopen', $debt->debt_id) }}" class="badge bg-warning">Reabrir</a>
-                                |
+
                             @endif
 
                         </td>
@@ -47,13 +47,18 @@
                                 No hay propiedad asociada
                             @endif
                         </td>
-                        <td>{{$debt->neighbor_id}}</td>
+                        <td> @if ($debt->neighbor) {{-- Verifica si la relación 'neighbor' existe --}}
+                            {{$debt->neighbor->name}} {{-- Accede al atributo 'name' del vecino --}}
+                        @else
+                            No hay vecino asociado
+                        @endif
+                        </td>
                         <td>{{$debt->issue_date}}</td>
                         <td>{{$debt->maturity_date}}</td>
                         <td>{{$debt->amount}}</td>
                         <td>
-                            <a href="" class="btn btn-primary">Editar</a> |
-                            <a href="#" class="btn btn-danger">Eliminar</a>
+                            <a href="{{route('pages-debts-show', $debt->debt_id)}}" class="btn btn-primary">Editar</a> |
+                            <a href="{{route('pages-debts-destroy', $debt->debt_id)}}" class="btn btn-danger">Eliminar</a>
                         </td>
                     </tr>
                 @endforeach

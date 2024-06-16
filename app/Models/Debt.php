@@ -9,6 +9,8 @@ class Debt extends Model
 {
 
     protected $primaryKey = 'debt_id';
+
+    //Para inserción masiva
     protected $fillable = [
         'property_id',
         'community_id',
@@ -16,10 +18,8 @@ class Debt extends Model
         'issue_date',
         'maturity_date',
         'amount',
-        'debt_type_id',
         'neighbor_id',
         'status_id'
-        // Agrega aquí otros campos que también sean fillable
     ];
     public function property()
     {

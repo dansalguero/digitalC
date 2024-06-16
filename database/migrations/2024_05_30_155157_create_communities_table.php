@@ -15,7 +15,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('communities', function (Blueprint $table) {
-            $table->id('community_id');
+            $table->id('community_id'); // Clave primaria 'community_id' como unsignedBigInteger
             $table->integer('user_id');
             $table->string('community_name');
             $table->string('contact_name');

@@ -11,11 +11,14 @@ use Illuminate\Support\Facades\Mail;
 use App\Exports\DebtExport;
 use Maatwebsite\Excel\Facades\Excel;
 
+
+////Controlador de la página de Gestión de pagos y todas sus funcionalidades
 class debts extends Controller
 {
   public function index()
   {
 
+    // Siempre me quedo con el usuario autenticado, esto se va a ver en todos los controladores.
 
     $user = Auth::user();
     $activeCommunity = $user->activeCommunity;
@@ -50,27 +53,30 @@ class debts extends Controller
     $user = Auth::user();
     $activeCommunity = $user->activeCommunity;
 
-    // Encuentra la propiedad seleccionada
+
+    //Esto lo hagopor si una propiedad no tiene vecino asignado que no tenga problemas al crear la deuda.
     $property = Property::find($request->property_id);
 
-    // Verifica si la propiedad tiene un vecino asignado
+    $neighbor_id = null;
 
-    // Si tiene un vecino asignado, toma su neighbor_id
-    $neighbor_id = $property->neighbor->property_id;
+
+    if ($property->neighbor) {
+        $neighbor_id = $property->neighbor->neighbor_id;
+    }
 
     $debt = new Debt();
     $debt->community_id = $activeCommunity->community_id;
     $debt->property_id = $request->property_id;
-    $debt->neighbor_id = $neighbor_id; // Asigna el neighbor_id
+    $debt->neighbor_id = $neighbor_id; 
     $debt->amount = $request->amount;
     $debt->debt_description = $request->debt_description;
     $debt->maturity_date = $request->maturity_date;
     $debt->issue_date = $request->issue_date;
     $debt->status_id = 1;
-    $debt->debt_type_id = 1;
     $debt->save();
 
-    Mail::to('danimanx2@gmail.com')->send(new NuevoRecibo());
+    //Por razones obvias, y para demostrar el envío de emails, he puesto siempre el mío personal.
+    Mail::to('danimanx2@gmail.com')->send(new NuevoRecibo($debt));
     return redirect()->route('pages-debts')->with('success', 'Deuda creada correctamente.');
 
   }
@@ -91,8 +97,6 @@ class debts extends Controller
     $user = Auth::user();
     $activeCommunity = $user->activeCommunity;
 
-    // Encuentra la propiedad seleccionada
-
 
     $properties = Property::where('community_id', $activeCommunity->community_id)->get();
 
@@ -107,7 +111,6 @@ class debts extends Controller
         'issue_date' => $request->issue_date,
         'maturity_date' => $request->maturity_date,
         'amount' => $request->amount,
-        'debt_type_id' => 2,
         'neighbor_id' => $neighbor ? $neighbor->neighbor_id : null,
         'status_id' =>1,
       ]);
@@ -129,10 +132,9 @@ class debts extends Controller
 
     $debt->amount = $request->amount;
     $debt->debt_description = $request->debt_description;
-    $debt->maturity_date = $request->maturity_date;
     $debt->issue_date = $request->issue_date;
-    $debt->status_id = $request->status_id;
-    $debt->debt_type_id = $request->debt_type_id;
+    $debt->maturity_date = $request->maturity_date;
+    $debt->clearing_date = $request->clearing_date;
     $debt->save();
 
     return redirect()->route('pages-debts')->with('success', 'Deuda actualizada correctamente.');
@@ -140,6 +142,8 @@ class debts extends Controller
 
   public function pay($debt_id)
   {
+
+    //Estado 1 lo uso como pendiente de pago y 2 como pagado.
     $debt = Debt::find($debt_id);
 
     $debt->status_id = 2;

@@ -4,7 +4,7 @@
 
 @extends('layouts/layoutMaster')
 
-@section('title', 'Page 2')
+@section('title', 'Propiedades')
 
 @section('content')
 <h4>Creando una propiedad nueva</h4>
@@ -46,15 +46,6 @@
                             placeholder="431 / D" />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="basic-default-fullname">Vecino</label>
-                        <select name='neighbor_id' class="form-select" id="basic-default-fullname" >
-                            <option value="">Selecciona un vecino</option>
-                            @foreach ($neighbors as $neighbor)
-                                <option value="{{ $neighbor->id }}">{{ $neighbor->name }} - {{ $neighbor->surname }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="mb-3">
                         <label class="form-label" for="basic-default-fullname">Estado</label>
                         <select name='status_id' class="form-select" id="basic-default-fullname" required>
                             <option value="">Selecciona un estado</option>
@@ -63,7 +54,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send</button>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
             </div>
         </div>

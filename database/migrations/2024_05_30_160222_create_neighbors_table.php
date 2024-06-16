@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('neighbors', function (Blueprint $table) {
             $table->id('neighbor_id');
             $table->unsignedBigInteger('community_id');
-            // $table->foreign('community_id')->references('community_id')->on('communities');
+            $table->foreign('community_id')->references('community_id')->on('communities');
 
-            $table->unsignedBigInteger('property_id');
-            // $table->foreign('property_id')->references('property_id')->on('properties');
+            $table->unsignedBigInteger('property_id')->nullable();;
+            $table->foreign('property_id')->references('property_id')->on('properties')->onDelete('set null');
 
             $table->decimal('ownership_percentage')->nullable();
             $table->boolean('is_primary_owner')->nullable();
@@ -28,8 +28,6 @@ return new class extends Migration
             $table->string('nif')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();;
-            $table->unsignedBigInteger('status_id')->default(0);
-            // $table->foreign('status_id')->references('status_id')->on('property_statuses');
 
             $table->timestamps();
         });

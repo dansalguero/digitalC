@@ -9,28 +9,28 @@ use Spatie\Permission\PermissionRegistrar;
 use App\Models\User;
 
 return new class extends Migration {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
 
-        $user = User::find(2);
+  public function up()
+  {
 
-        $role1 = Role::create(['name' => 'admin']);
-        $role2 = Role::create(['name' => 'user']);
-        $user->assignRole($role1);
-    }
+    //$user = User::find(1);
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('roles_main');
-    }
+    $role1 = Role::create(['name' => 'admin']);
+    $role2 = Role::create(['name' => 'user']);
+    //  $user->assignRole($role1);
+  }
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::dropIfExists('roles_main');
+  }
 };

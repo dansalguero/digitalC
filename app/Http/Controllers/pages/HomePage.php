@@ -16,25 +16,31 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 
+////Controlador de la página principal / panel de control y todas sus funcionalidades
 class HomePage extends Controller
 {
   public function index()
   {
     $user = Auth::user();
 
+
+    //Con esto compruebo si el usuario tiene rol o no y le asigno siempre el de tipo cliente
+
     $roleifexist = DB::table('model_has_roles')->where('model_id', $user->id)->first();
 
     if (!$roleifexist) {
-       DB::table('model_has_roles')->insert([
-           'role_id' => 2,
-           'model_type' => 'App\Models\User',
-           'model_id' => $user->id
-       ]);
-     
+      DB::table('model_has_roles')->insert([
+        'role_id' => 2,
+        'model_type' => 'App\Models\User',
+        'model_id' => $user->id
+      ]);
+
     }
 
     $communities = Community::where('user_id', $user->id)->get(['community_id', 'community_name']);
 
+
+    //Aquí he dividido las variables en 2 grupos, uno para el widget de arriba y el otro para la tabla para mayor comodidad.
     $communityData = [];
 
     foreach ($communities as $community) {
@@ -74,47 +80,64 @@ class HomePage extends Controller
   }
   public function pendingdebts()
   {
-      $user = Auth::user();
-      $activeCommunity = $user->activeCommunity;
+    $user = Auth::user();
+    $communities = Community::where('user_id', $user->id)->get();
+
+    //Creo colección vacía para ir añadiendo las deudas pendientes de todas las comunidades y exportarlas a pdf
+
+    $allDebts = collect();
+
+    foreach ($communities as $community) {
+
+      $debts = Debt::where('community_id', $community->community_id)
+        ->whereNull('clearing_date')
+        ->get();
 
 
-      $debts = Debt::where('community_id', $activeCommunity->community_id)
-          ->whereNull('clearing_date') // Asumiendo que 'fecha_cobro' es el nombre de la columna de la fecha de cobro
-          ->get();
+      $allDebts = $allDebts->merge($debts);
+    }
 
 
-      $pdf = Pdf::loadView('content.pdf.pendingdebts', ['debts' => $debts]);
+    $pdf = PDF::loadView('content.pdf.pendingdebts', ['debts' => $allDebts]);
 
-      $report = new Report();
-      $report->url = 'pendingdebts.pdf';
-      $report->save();
+    $report = new Report();
+    $report->url = 'pendingdebts.pdf';
+    $report->save();
 
-      Storage::put('public/pdf/pendingdebts.pdf', $pdf->output());
-      return $pdf->download('pendingdebts.pdf');
+    Storage::put('public/pdf/pendingdebts.pdf', $pdf->output());
 
-      // return view('content.pages.reports-create', ['activeCommunity' => $activeCommunity]);
+
+    return $pdf->download('pendingdebts.pdf');
   }
+
 
   public function paiddebts()
   {
-      $user = Auth::user();
-      $activeCommunity = $user->activeCommunity;
-
-    
-      $debts = Debt::where('community_id', $activeCommunity->community_id)
-          ->whereNotNull('clearing_date') // Asumiendo que 'fecha_cobro' es el nombre de la columna de la fecha de cobro
-          ->get();
+    $user = Auth::user();
+    $communities = Community::where('user_id', $user->id)->get();
 
 
-      $pdf = Pdf::loadView('content.pdf.paiddebts', ['debts' => $debts]);
+    //Creo colección vacía para ir añadiendo las deudas pagadas de todas las comunidades y exportarlas a pdf
+    $allDebts = collect();
 
-      $report = new Report();
-      $report->url = 'paiddebts.pdf';
-      $report->save();
+    foreach ($communities as $community) {
 
-      Storage::put('public/pdf/paiddebts.pdf', $pdf->output());
-      return $pdf->download('paiddebts.pdf');
+      $debts = Debt::where('community_id', $community->community_id)
+        ->whereNotNull('clearing_date')
+        ->get();
 
-      // return view('content.pages.reports-create', ['activeCommunity' => $activeCommunity]);
+      $allDebts = $allDebts->merge($debts);
+    }
+
+    $pdf = PDF::loadView('content.pdf.paiddebts', ['debts' => $allDebts]);
+
+    $report = new Report();
+    $report->url = 'paiddebts.pdf';
+    $report->save();
+
+    Storage::put('public/pdf/paiddebts.pdf', $pdf->output());
+
+
+    return $pdf->download('paiddebts.pdf');
   }
 }

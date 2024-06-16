@@ -9,6 +9,8 @@ use App\Models\Property;
 use App\Models\Neighbor;
 use Illuminate\Support\Facades\Auth;
 
+
+////Controlador de la página de propiedades y todas sus funcionalidades
 class properties extends Controller
 {
   public function index()
@@ -62,6 +64,7 @@ class properties extends Controller
     $property->created_at = now();
     $property->updated_at = now();
     $property->save();
+
     return redirect()->route('pages-properties');
   }
 
@@ -105,19 +108,17 @@ class properties extends Controller
     $property = Property::find($property_id);
 
     if (!$property) {
-        return redirect()->route('pages-properties')->with('error', 'La propiedad no existe.');
+      return redirect()->route('pages-properties')->with('error', 'La propiedad no existe.');
     }
 
-    // Obtener el vecino asociado a esta propiedad, si existe
     $neighbor = $property->neighbor;
 
-    // Eliminar la propiedad
     $property->delete();
 
-    // Si hay un vecino asociado, actualizar el campo property_id a null
+    // Si hay un vecino asociado, actualizo el campo property_id a null
     if ($neighbor) {
-        $neighbor->property_id = null;
-        $neighbor->save();
+      $neighbor->property_id = null;
+      $neighbor->save();
     }
     return redirect()->route('pages-properties');
   }

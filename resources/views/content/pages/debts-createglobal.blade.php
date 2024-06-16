@@ -4,10 +4,10 @@
 
 @extends('layouts/layoutMaster')
 
-@section('title', 'Page 2')
+@section('title', 'Gestión de deuda')
 
 @section('content')
-<h4>Creando una propiedad nueva</h4>
+<h4>Creando una deuda nueva</h4>
 
 <div class="row">
     @if ($errors->any())

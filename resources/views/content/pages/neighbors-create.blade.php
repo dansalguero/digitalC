@@ -4,7 +4,7 @@
 
 @extends('layouts/layoutMaster')
 
-@section('title', 'Page 2')
+@section('title', 'Vecinos')
 
 @section('content')
 <h4>Creando un vecino nuevo</h4>

@@ -51,6 +51,7 @@
     <table>
         <thead>
             <tr>
+                <th>Comunidad</th> <!-- Nueva columna -->
                 <th>Vivienda</th>
                 <th>Vecino</th>
                 <th>Descripción</th>
@@ -62,6 +63,7 @@
         <tbody>
             @foreach($debts as $debt)
                 <tr>
+                    <td>{{ $debt->property->community->community_name }}</td> <!-- Añadir el nombre de la comunidad -->
                     @if ($debt->property)
                         <td>{{ $debt->property->phase }} <br>{{ $debt->property->block }} -
                             {{ $debt->property->floor }} - {{ $debt->property->number }}
@@ -70,10 +72,9 @@
                         <td class="no-property">N/A</td>
                     @endif
                     @if ($debt->neighbor)
-                        <td>{{ $debt->neighbor->name }} <br>{{ $debt->neighbor->surname }} -
-                        </td>
+                        <td>{{ $debt->neighbor->name }} <br>{{ $debt->neighbor->surname }}</td>
                     @else
-                        <td class="no-property"> N/A</td>
+                        <td class="no-property">N/A</td>
                     @endif
                     <td>{{ $debt->debt_description }}</td>
                     <td>{{ $debt->issue_date }}</td>
